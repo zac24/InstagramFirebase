@@ -83,6 +83,14 @@ class ViewController: UIViewController {
                 return
             }
             print("Successfully created user:",user?.uid ?? "")
+            
+            guard let uid = user?.uid else {return}
+            let values = [uid:1]
+            Database.database().reference().child("users").setValue(values, withCompletionBlock: { (err, ref) in
+                if let err = err {
+                    
+                }
+            })
         }
     }
 
@@ -101,7 +109,7 @@ class ViewController: UIViewController {
         
         let stackView = UIStackView(arrangedSubviews: [emailTextField, usernameTextField, passwordTextField, signupButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillEqually      
         stackView.axis = .vertical
         stackView.spacing = 10
         
